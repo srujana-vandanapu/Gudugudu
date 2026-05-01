@@ -18,7 +18,6 @@ export default function RegisterPage() {
     try {
       await register({
         ...form,
-        phoneNumber: form.phoneNumber.replace(/\D/g, ''),
         monthlyBudget: form.monthlyBudget ? parseFloat(form.monthlyBudget) : 0
       })
       toast.success('Account created! Welcome to gudugudu')
@@ -31,7 +30,6 @@ export default function RegisterPage() {
   }
 
   const set = (k) => (e) => setForm({ ...form, [k]: e.target.value })
-  const setPhoneNumber = (e) => setForm({ ...form, phoneNumber: e.target.value.replace(/\D/g, '') })
 
   return (
     <div className="auth-shell min-h-screen flex items-center justify-center px-4 py-8">
@@ -61,7 +59,7 @@ export default function RegisterPage() {
               <label className="label">Phone Number</label>
               <div className="relative">
                 <Phone size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2" style={{ color: 'var(--muted)' }} />
-                <input className="input-field pl-9" type="tel" inputMode="numeric" pattern="[0-9]{10,15}" placeholder="9876543210" autoComplete="tel" value={form.phoneNumber} onChange={setPhoneNumber} required />
+                <input className="input-field pl-9" type="tel" placeholder="9876543210" autoComplete="tel" value={form.phoneNumber} onChange={set('phoneNumber')} required />
               </div>
             </div>
 

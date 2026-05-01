@@ -5,8 +5,6 @@ import com.tracker.service.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -24,10 +22,7 @@ public class AuthController {
             AuthDto.AuthResponse response = authService.register(request);
             return ResponseEntity.ok(response);
         } catch (RuntimeException e) {
-            if ("Phone number already registered".equals(e.getMessage())) {
-                return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
-            }
-            return ResponseEntity.internalServerError().body(Map.of("error", "Registration is temporarily unavailable. Please try again later."));
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
         }
     }
 
@@ -39,22 +34,5 @@ public class AuthController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(Map.of("error", "Invalid phone number or password"));
         }
-    }
-
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<?> handleValidation(MethodArgumentNotValidException e) {
-        String message = e.getBindingResult().getFieldErrors().stream()
-            .findFirst()
-            .map(this::formatValidationError)
-            .orElse("Invalid request");
-        return ResponseEntity.badRequest().body(Map.of("error", message));
-    }
-
-    private String formatValidationError(FieldError error) {
-        String defaultMessage = error.getDefaultMessage();
-        if (defaultMessage != null && !defaultMessage.isBlank()) {
-            return defaultMessage;
-        }
-        return error.getField() + " is invalid";
     }
 }
