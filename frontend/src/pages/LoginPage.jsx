@@ -50,6 +50,7 @@ export default function LoginPage() {
                   className="input-field pl-9"
                   type="tel"
                   placeholder="9876543210"
+                  autoComplete="tel"
                   value={form.phoneNumber}
                   onChange={e => setForm({ ...form, phoneNumber: e.target.value })}
                   required
@@ -65,6 +66,7 @@ export default function LoginPage() {
                   className="input-field pl-9 pr-10"
                   type={showPwd ? 'text' : 'password'}
                   placeholder="••••••••"
+                  autoComplete="current-password"
                   value={form.password}
                   onChange={e => setForm({ ...form, password: e.target.value })}
                   required

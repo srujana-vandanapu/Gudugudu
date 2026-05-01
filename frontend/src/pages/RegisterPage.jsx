@@ -51,7 +51,7 @@ export default function RegisterPage() {
               <label className="label">Full Name</label>
               <div className="relative">
                 <User size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2" style={{ color: 'var(--muted)' }} />
-                <input className="input-field pl-9" type="text" placeholder="Rahul Sharma" value={form.name} onChange={set('name')} required />
+                <input className="input-field pl-9" type="text" placeholder="Rahul Sharma" autoComplete="name" value={form.name} onChange={set('name')} required />
               </div>
             </div>
 
@@ -59,7 +59,7 @@ export default function RegisterPage() {
               <label className="label">Phone Number</label>
               <div className="relative">
                 <Phone size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2" style={{ color: 'var(--muted)' }} />
-                <input className="input-field pl-9" type="tel" placeholder="9876543210" value={form.phoneNumber} onChange={set('phoneNumber')} required />
+                <input className="input-field pl-9" type="tel" placeholder="9876543210" autoComplete="tel" value={form.phoneNumber} onChange={set('phoneNumber')} required />
               </div>
             </div>
 
@@ -67,7 +67,7 @@ export default function RegisterPage() {
               <label className="label">Password</label>
               <div className="relative">
                 <Lock size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2" style={{ color: 'var(--muted)' }} />
-                <input className="input-field pl-9 pr-10" type={showPwd ? 'text' : 'password'} placeholder="Min. 6 characters" value={form.password} onChange={set('password')} required />
+                <input className="input-field pl-9 pr-10" type={showPwd ? 'text' : 'password'} placeholder="Min. 6 characters" autoComplete="new-password" value={form.password} onChange={set('password')} required />
                 <button type="button" onClick={() => setShowPwd(!showPwd)} className="absolute right-3 top-1/2 -translate-y-1/2" style={{ color: 'var(--muted)' }}>
                   {showPwd ? <EyeOff size={15} /> : <Eye size={15} />}
                 </button>
