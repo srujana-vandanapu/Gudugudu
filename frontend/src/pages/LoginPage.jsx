@@ -16,7 +16,7 @@ export default function LoginPage() {
     e.preventDefault()
     setLoading(true)
     try {
-      await login(form.phoneNumber, form.password)
+      await login(form.phoneNumber.replace(/\D/g, ''), form.password)
       toast.success('Welcome back! 👋')
       navigate('/')
     } catch (err) {
@@ -49,10 +49,12 @@ export default function LoginPage() {
                 <input
                   className="input-field pl-9"
                   type="tel"
+                  inputMode="numeric"
+                  pattern="[0-9]{10,15}"
                   placeholder="9876543210"
                   autoComplete="tel"
                   value={form.phoneNumber}
-                  onChange={e => setForm({ ...form, phoneNumber: e.target.value })}
+                  onChange={e => setForm({ ...form, phoneNumber: e.target.value.replace(/\D/g, '') })}
                   required
                 />
               </div>
